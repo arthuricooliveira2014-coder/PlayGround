@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Factory Escape</title>
+  <style>
+    *{box-sizing:border-box} :root{color-scheme:dark} body{margin:0;overflow:hidden;background:#080b0d;font-family:Impact,"Arial Black",sans-serif;color:#f4f1e8}
+    canvas{display:block;width:100vw;height:100vh;touch-action:none}
+    #ui{position:fixed;inset:0;pointer-events:none}
+    #title{position:absolute;left:50%;top:13%;transform:translateX(-50%) rotate(-2deg);text-align:center;text-shadow:0 5px 0 #3a1717,0 10px 25px #000;font-size:clamp(38px,7vw,82px);letter-spacing:.04em;line-height:.82}
+    #title span{display:block;font-family:Georgia,serif;font-size:.28em;color:#dfc48d;letter-spacing:.38em;margin-top:18px}
+    #menu,#complete,#hurt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,rgba(16,22,20,.25),rgba(0,0,0,.82));pointer-events:auto}
+    #menu{justify-content:flex-end;padding-bottom:7vh}.hidden{display:none!important}
+    .button{border:3px solid #cdbb82;background:#d84b33;color:#fff3df;padding:14px 28px;font:900 20px Impact,sans-serif;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 7px 0 #7e2419,0 12px 30px #000;cursor:pointer;transform:rotate(-1deg)}
+    .button:active{transform:translateY(5px) rotate(-1deg);box-shadow:0 2px 0 #7e2419}
+    #help{position:absolute;bottom:15%;text-align:center;color:#d8d2c1;font:700 13px Georgia,serif;letter-spacing:.12em;text-shadow:0 2px 5px #000}
+    #hud{position:absolute;left:22px;right:22px;top:18px;display:flex;justify-content:space-between;align-items:flex-start;font-family:Georgia,serif}
+    #objective{background:rgba(8,10,9,.72);border-left:4px solid #be3b2a;padding:9px 12px;font-size:13px;letter-spacing:.06em;max-width:55vw}.key{color:#e1c17f;font-weight:bold}
+    #battery{display:flex;align-items:center;gap:8px;background:rgba(8,10,9,.72);padding:8px 10px}.power{width:96px;height:12px;border:2px solid #d2c49c;padding:2px}.power i{display:block;height:100%;background:#c2a45e}
+    #crosshair{position:absolute;left:50%;top:50%;width:7px;height:7px;border:1px solid rgba(255,255,255,.65);border-radius:50%;transform:translate(-50%,-50%)}
+    #interact{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);background:#111a17cc;border:1px solid #b7a875;padding:8px 13px;font:700 13px Georgia,serif;opacity:0;transition:.15s}
+    #hurt{background:rgba(150,18,12,.55);font-size:clamp(46px,9vw,100px);letter-spacing:.08em;text-shadow:0 5px #240504}
+    #complete{background:rgba(6,9,8,.82);font-size:clamp(34px,7vw,74px);text-align:center}#complete small{font:700 14px Georgia,serif;color:#b9ac88;letter-spacing:.18em;margin:14px 0 28px}
+    #mobile{display:none;position:absolute;inset:auto 0 18px 0;justify-content:space-between;padding:0 18px}
+    .stick{width:112px;height:112px;border:2px solid rgba(205,187,130,.45);border-radius:50%;position:relative;background:rgba(20,27,24,.28)}.stick i{position:absolute;width:46px;height:46px;border-radius:50%;background:rgba(205,187,130,.58);left:33px;top:33px}
+    .action{width:78px;height:78px;border-radius:50%;border:2px solid rgba(205,187,130,.55);background:rgba(25,31,29,.38);color:#ddd2ab;font:900 14px Georgia,serif;margin-top:34px}
+    @media(max-width:800px),(pointer:coarse){#mobile{display:flex}#help{display:none}#interact{bottom:25%}#hud{left:10px;right:10px}.power{width:58px}}
+  </style>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="ui">
+    <div id="menu">
+      <div id="title">NIGHT SHIFT<span>TOY FACTORY 1985</span></div>
+      <button class="button" id="start">Enter Factory</button>
+      <div id="help">WASD / ARROW KEYS TO MOVE &nbsp;•&nbsp; MOUSE TO LOOK &nbsp;•&nbsp; E TO INTERACT &nbsp;•&nbsp; SHIFT TO RUN</div>
+    </div>
+    <div id="hud" class="hidden"><div id="objective"><span class="key">OBJECTIVE</span><br><span id="task">Find the red hand scanner</span></div><div id="battery"><span>POWER</span><div class="power"><i id="powerbar"></i></div></div></div>
+    <div id="crosshair" class="hidden"></div><div id="interact" class="hidden">E &nbsp; ACTIVATE</div>
+    <div id="hurt" class="hidden">YOU WERE FOUND</div>
+    <div id="complete" class="hidden">SHIPMENT COMPLETE<small>THE NIGHT SHIFT IS OVER</small><button class="button" id="again">Play Again</button></div>
+    <div id="mobile" class="hidden"><div class="stick" id="stick"><i id="knob"></i></div><button class="action" id="action">ACT</button></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
